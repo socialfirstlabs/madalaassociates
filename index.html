@@ -178,30 +178,36 @@
         }
 
         .logo {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--color-text-main);
+            z-index: 1002; /* Ensure logo stays above mobile menu */
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            letter-spacing: 0.5px;
         }
         
-        .logo span {
-            color: var(--color-gold);
+        .logo img {
+            height: 50px; /* Adjust height as needed */
+            width: auto;
+            object-fit: contain;
         }
 
         .nav-links {
             display: flex;
             gap: 40px;
+            align-items: center; /* Fixes alignment between text links and button */
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--color-text-main);
+            color: var(--color-white); /* Default to WHITE for Hero visibility */
             font-size: 0.9rem;
             font-weight: 500;
             transition: var(--transition);
             position: relative;
+        }
+
+        /* Switch to dark text when header is scrolled (white background) */
+        header.scrolled .nav-links a {
+            color: var(--color-text-main);
         }
 
         .nav-links a::after {
@@ -219,19 +225,70 @@
             width: 100%;
         }
 
+        /* --- NAV CTA BUTTON STYLE --- */
+        .nav-links .nav-cta {
+            padding: 8px 24px;
+            border: 1px solid var(--color-white);
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .nav-links .nav-cta:hover {
+            background-color: var(--color-white);
+            color: var(--color-text-main);
+        }
+
+        /* Remove underline from button */
+        .nav-links .nav-cta::after {
+            display: none; 
+        }
+
+        /* Scrolled State for CTA */
+        header.scrolled .nav-links .nav-cta {
+            border-color: var(--color-text-main);
+            color: var(--color-text-main);
+        }
+
+        header.scrolled .nav-links .nav-cta:hover {
+            background-color: var(--color-text-main);
+            color: var(--color-white);
+        }
+
         /* Mobile Menu */
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
             gap: 6px;
+            z-index: 1002; /* Ensure hamburger stays above mobile menu */
         }
 
         .bar {
             width: 25px;
             height: 2px;
-            background-color: var(--color-text-main);
+            background-color: var(--color-white); /* Default to WHITE for Hero */
             transition: var(--transition);
+        }
+
+        /* Switch hamburger to dark when scrolled */
+        header.scrolled .bar {
+            background-color: var(--color-text-main);
+        }
+        
+        /* Switch hamburger to dark when menu is active (on white mobile menu) */
+        .hamburger.active .bar {
+            background-color: var(--color-text-main);
+        }
+
+        /* Animation for Hamburger */
+        .hamburger.active .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .hamburger.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
 
         /* --- HERO SECTION --- */
@@ -290,6 +347,13 @@
             box-shadow: 20px 20px 0px var(--color-bg), 20px 20px 0px 1px var(--color-border);
         }
 
+        /* Responsive Image Shadow fix */
+        @media (max-width: 768px) {
+            .about-img {
+                box-shadow: 10px 10px 0px var(--color-bg), 10px 10px 0px 1px var(--color-border);
+            }
+        }
+
         .philosophy-list {
             list-style: none;
             margin-top: 20px;
@@ -319,7 +383,7 @@
         /* --- SERVICES --- */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Reduced min-width for mobile */
             gap: 30px;
         }
 
@@ -395,7 +459,7 @@
         /* --- FEATURED PROJECTS --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for mobile */
             gap: 20px;
         }
 
@@ -444,27 +508,94 @@
         /* --- TEAM --- */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted for mobile */
             gap: 40px;
         }
 
         .team-card {
+            position: relative;
             background-color: var(--color-white);
             border: 1px solid var(--color-border);
             overflow: hidden;
+            height: 480px; /* Fixed height required for the hover effect */
+            cursor: pointer;
+            group: team-card; /* Tailwind-like grouping concept for CSS */
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        /* Dark gradient at bottom to make text readable before hover if needed, 
+           though we are using a white box slide-up */
+        .team-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .team-card:hover::after {
+            opacity: 0; /* Hide shadow when info slides up */
         }
 
         .team-info {
-            padding: 30px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--color-white);
+            padding: 25px;
+            
+            /* Slide Logic: 
+               Move it down so only the top part (Name/Role) is visible. 
+               100% (height of box) - 100px (visible area) */
+            transform: translateY(calc(100% - 95px)); 
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 10;
+            border-top: 2px solid var(--color-gold);
+        }
+
+        .team-card:hover .team-info {
+            transform: translateY(0);
+        }
+
+        .team-card:hover .team-img {
+            transform: scale(1.05);
         }
 
         .team-role {
             color: var(--color-gold);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             display: block;
+            letter-spacing: 1px;
+        }
+
+        .team-info h3 {
+            margin-bottom: 20px; /* Space between header and details */
+            font-size: 1.3rem;
+        }
+
+        /* Container for the hidden details to manage opacity */
+        .team-details {
+            opacity: 0;
+            transition: opacity 0.3s ease 0.1s; /* Slight delay */
+        }
+
+        .team-card:hover .team-details {
+            opacity: 1;
         }
 
         .team-meta {
@@ -473,6 +604,34 @@
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid var(--color-border);
+        }
+
+        /* Team Responsive Overrides */
+        @media (max-width: 992px) {
+            .team-card {
+                height: auto; /* Remove fixed height on mobile/tablet */
+            }
+            
+            .team-img {
+                height: 350px; /* Fixed height for image part */
+            }
+
+            .team-card::after { display: none; }
+
+            .team-info {
+                position: relative; /* Stack normally */
+                transform: none;
+                padding: 25px;
+                border-top: none;
+            }
+            
+            .team-details {
+                opacity: 1; /* Always visible */
+            }
+            
+            .team-card:hover .team-img {
+                transform: none;
+            }
         }
 
         /* --- FAQ --- */
@@ -584,34 +743,115 @@
 
         /* --- RESPONSIVE --- */
         @media (max-width: 992px) {
+            :root {
+                --spacing-section: 80px;
+            }
             h1 { font-size: 2.8rem; }
-            .about-grid { grid-template-columns: 1fr; }
-            .about-img { height: 350px; order: -1; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px;}
+            .about-img { height: 400px; order: -1; }
         }
 
         @media (max-width: 768px) {
+            :root {
+                --spacing-section: 60px;
+            }
+            
+            .container { padding: 0 25px; }
+
+            /* Mobile Nav Overlay */
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 0;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 70px);
+                height: 100vh; /* Full screen */
                 background-color: var(--color-white);
                 flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 padding: 40px;
-                gap: 20px;
-                transition: 0.3s ease;
-                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                gap: 30px;
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: none;
+                z-index: 1001;
             }
             
             .nav-links.active { left: 0; }
+            
+            .nav-links a {
+                font-size: 1.2rem; /* Larger touch targets */
+                color: var(--color-text-main); /* Ensure links are DARK in mobile menu */
+            }
+
+            /* Mobile CTA Styling */
+            .nav-links .nav-cta {
+                border-color: var(--color-text-main);
+                color: var(--color-text-main);
+                width: 100%;
+                text-align: center;
+                max-width: 200px;
+                padding: 12px 30px;
+            }
+
+            .nav-links .nav-cta:hover {
+                background-color: var(--color-text-main);
+                color: var(--color-white);
+            }
+
             .hamburger { display: flex; }
             
+            /* Typography Scale */
             h1 { font-size: 2.2rem; }
             h2 { font-size: 2rem; }
+            h3 { font-size: 1.3rem; }
             
-            .hero-buttons { flex-direction: column; }
+            /* Hero Mobile */
+            .hero-content { 
+                text-align: center; 
+            }
+            
+            .hero-location { 
+                justify-content: center; 
+                text-align: center;
+            }
+            
+            .hero-buttons { 
+                flex-direction: column; 
+                gap: 15px;
+            }
+            
             .btn { width: 100%; text-align: center; }
+
+            /* Process Steps */
+            .process-steps {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            /* Team & Projects */
+            .project-grid { grid-template-columns: 1fr; }
+            
+            /* Why Choose Us stacking */
+            .features-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .features-wrapper > div {
+                max-width: 100% !important;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            
+            .service-card { padding: 30px 20px; }
+            
+            .about-img { height: 250px; }
+            
+            .faq-question { font-size: 1rem; }
         }
     </style>
 </head>
@@ -620,7 +860,9 @@
     <!-- Navigation -->
     <header id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">Mandala<span>.</span></a>
+            <a href="#" class="logo">
+                <img src="img/Mandala-Associates_Logo.png" alt="Mandala Associates">
+            </a>
             <div class="hamburger" id="hamburger">
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -633,7 +875,7 @@
                 <a href="#projects" class="nav-link">Portfolio</a>
                 <a href="#team" class="nav-link">Team</a>
                 <a href="#faq" class="nav-link">FAQ</a>
-                <a href="#contact" class="nav-link" style="color: var(--color-gold);">Contact</a>
+                <a href="#contact" class="nav-link nav-cta">Contact</a>
             </nav>
         </div>
     </header>
@@ -828,7 +1070,8 @@
             <span class="section-subtitle">Why Clients Choose Us</span>
             <h2 style="color: white; margin-bottom: 40px;">What Our Work Represents</h2>
             
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 40px;">
+            <!-- Added features-wrapper class for responsive control -->
+            <div class="features-wrapper" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 40px;">
                 <div style="max-width: 250px;">
                     <h4 style="color: var(--color-gold);">Context-sensitive</h4>
                     <p style="color: #aaa; font-size: 0.9rem;">Designs suited for Nepal's climate and culture.</p>
@@ -861,52 +1104,68 @@
             <div class="team-grid">
                 <!-- Principal Architect -->
                 <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Principal Architect" class="team-img">
                     <div class="team-info">
                         <span class="team-role">Principal Architect & Founder</span>
                         <h3>[Your Name]</h3>
-                        <p>Provides overall design leadership and strategic direction for the studio. With a strong emphasis on clarity, proportion, and functionality.</p>
-                        <div class="team-meta">
-                            <strong>Expertise:</strong> Architectural Design · Strategic Planning<br>
-                            <strong>Experience:</strong> 8+ Years
+                        
+                        <div class="team-details">
+                            <p>Provides overall design leadership and strategic direction for the studio. With a strong emphasis on clarity, proportion, and functionality.</p>
+                            <div class="team-meta">
+                                <strong>Expertise:</strong> Architectural Design · Strategic Planning<br>
+                                <strong>Experience:</strong> 8+ Years
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Senior Interior Designer -->
                 <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Senior Interior Designer" class="team-img">
                     <div class="team-info">
                         <span class="team-role">Senior Interior Designer</span>
                         <h3>[Name]</h3>
-                        <p>Responsible for crafting sophisticated interior environments. Focuses on thoughtful layouts, refined material palettes, and lighting.</p>
-                        <div class="team-meta">
-                            <strong>Expertise:</strong> Interior Architecture · Space Planning<br>
-                            <strong>Experience:</strong> 5+ Years
+                        
+                        <div class="team-details">
+                            <p>Responsible for crafting sophisticated interior environments. Focuses on thoughtful layouts, refined material palettes, and lighting.</p>
+                            <div class="team-meta">
+                                <strong>Expertise:</strong> Interior Architecture · Space Planning<br>
+                                <strong>Experience:</strong> 5+ Years
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Architectural Designer -->
                 <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Architectural Designer" class="team-img">
                     <div class="team-info">
                         <span class="team-role">Architectural Designer</span>
                         <h3>[Name]</h3>
-                        <p>Supports the design process through precise drawings, high-quality visualizations, and detailed design documentation.</p>
-                        <div class="team-meta">
-                            <strong>Expertise:</strong> Design Development · 3D Visualization<br>
-                            <strong>Experience:</strong> 3+ Years
+                        
+                        <div class="team-details">
+                            <p>Supports the design process through precise drawings, high-quality visualizations, and detailed design documentation.</p>
+                            <div class="team-meta">
+                                <strong>Expertise:</strong> Design Development · 3D Visualization<br>
+                                <strong>Experience:</strong> 3+ Years
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                  <!-- Site Engineer -->
                  <div class="team-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Site Engineer" class="team-img">
                     <div class="team-info">
                         <span class="team-role">Site Engineer / Supervisor</span>
                         <h3>[Name]</h3>
-                        <p>Oversees on-site implementation with a focus on construction accuracy, material quality, and adherence to approved designs.</p>
-                        <div class="team-meta">
-                            <strong>Expertise:</strong> Site Execution · Quality Control<br>
-                            <strong>Experience:</strong> 4+ Years
+                        
+                        <div class="team-details">
+                            <p>Oversees on-site implementation with a focus on construction accuracy, material quality, and adherence to approved designs.</p>
+                            <div class="team-meta">
+                                <strong>Expertise:</strong> Site Execution · Quality Control<br>
+                                <strong>Experience:</strong> 4+ Years
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1039,12 +1298,14 @@
 
             hamburger.addEventListener('click', () => {
                 navLinks.classList.toggle('active');
+                hamburger.classList.toggle('active'); // Add active class for animation
             });
 
             // Close mobile menu when a link is clicked
             navLinksItems.forEach(link => {
                 link.addEventListener('click', () => {
                     navLinks.classList.remove('active');
+                    hamburger.classList.remove('active'); // Remove active class
                 });
             });
 
