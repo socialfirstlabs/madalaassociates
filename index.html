@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mandala Associates - Kathmandu-based architecture and interior design studio dedicated to creating timeless, functional, and inspiring spaces.">
+    <title>Mandala Associates | Architecture & Interior Design</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --color-bg: #FAFAFA;
+            --color-white: #FFFFFF;
+            --color-text-main: #1A1A1A;
+            --color-text-muted: #555555;
+            --color-gold: #C5A059;
+            --color-gold-hover: #b08d4b;
+            --color-border: #E0E0E0;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            
+            --spacing-section: 100px;
+            --spacing-container: 1200px;
+            
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Offset for sticky header */
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            color: var(--color-text-main);
+            font-weight: 400;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            color: var(--color-gold);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: var(--spacing-container);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: var(--spacing-section) 0;
+        }
+
+        .text-center { text-align: center; }
+        .text-white { color: var(--color-white); }
+        .bg-white { background-color: var(--color-white); }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-text-main);
+            color: var(--color-white);
+            border-color: var(--color-text-main);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-gold);
+            border-color: var(--color-gold);
+            color: var(--color-white);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-text-main);
+            border-color: var(--color-text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-text-main);
+            color: var(--color-white);
+        }
+
+        .btn-gold {
+            background-color: var(--color-gold);
+            color: var(--color-white);
+        }
+        
+        .btn-gold:hover {
+            background-color: var(--color-gold-hover);
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            background-color: transparent;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo span {
+            color: var(--color-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--color-gold);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 2px;
+            background-color: var(--color-text-main);
+            transition: var(--transition);
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            height: 100vh;
+            min-height: 600px;
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1, .hero-content p, .hero-content .section-subtitle {
+            color: var(--color-white);
+        }
+        
+        .hero-content .section-subtitle {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-location {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- ABOUT US --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            box-shadow: 20px 20px 0px var(--color-bg), 20px 20px 0px 1px var(--color-border);
+        }
+
+        .philosophy-list {
+            list-style: none;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .philosophy-list li {
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--color-text-main);
+        }
+
+        .philosophy-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+        }
+
+        /* --- SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--color-bg);
+            padding: 40px 30px;
+            border: 1px solid var(--color-border);
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .service-list li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .service-list li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: var(--color-gold);
+        }
+
+        /* --- PROCESS --- */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            position: relative;
+        }
+
+        .step-number {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: rgba(197, 160, 89, 0.2); /* Muted gold */
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--color-text-main);
+        }
+
+        /* --- FEATURED PROJECTS --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            group: cursor-pointer;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            opacity: 1; /* Always visible for better UX, or change to 0 for hover only */
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+
+        .project-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-gold);
+        }
+
+        .project-title {
+            color: white;
+            margin-bottom: 0;
+            font-size: 1.5rem;
+        }
+
+        /* --- TEAM --- */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .team-info {
+            padding: 30px;
+        }
+
+        .team-role {
+            color: var(--color-gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .team-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* --- FAQ --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 10px;
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px 0;
+            background: none;
+            border: none;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--color-text-main);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--color-gold);
+        }
+
+        .faq-question:hover {
+            color: var(--color-gold);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-family: var(--font-sans);
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding-right: 20px;
+        }
+
+        .faq-answer p {
+            padding-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- CONTACT / CTA --- */
+        #cta {
+            background-color: var(--color-text-main);
+            color: var(--color-white);
+            text-align: center;
+        }
+        
+        #cta h2, #cta p {
+            color: var(--color-white);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .contact-item h4 {
+            color: var(--color-gold);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item p, .contact-item a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .contact-item a:hover {
+            color: var(--color-white);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #111;
+            color: rgba(255,255,255,0.5);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        footer .brand {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.8rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-img { height: 350px; order: -1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--color-white);
+                flex-direction: column;
+                padding: 40px;
+                gap: 20px;
+                transition: 0.3s ease;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active { left: 0; }
+            .hamburger { display: flex; }
+            
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 2rem; }
+            
+            .hero-buttons { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Mandala<span>.</span></a>
+            <div class="hamburger" id="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <nav class="nav-links" id="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#process" class="nav-link">Process</a>
+                <a href="#projects" class="nav-link">Portfolio</a>
+                <a href="#team" class="nav-link">Team</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#contact" class="nav-link" style="color: var(--color-gold);">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="section-subtitle">Design. Refine. Deliver.</span>
+                <h1>Transforming Spaces into Meaningful Experiences</h1>
+                <p>Mandala Associates is a Kathmandu-based architecture and interior design studio dedicated to creating timeless, functional, and inspiring spaces. From concept to completion, we design environments that reflect your lifestyle, purpose, and aspirations.</p>
+                
+                <div class="hero-location">
+                    <span>📍 Based in Teku, Kathmandu | Serving clients across Nepal</span>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get a Free Design Consultation</a>
+                    <a href="#projects" class="btn btn-outline" style="border-color: white; color: white;">View Our Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us -->
+    <section id="about" class="section-padding bg-white">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="section-subtitle">About Us</span>
+                    <h2>Architecture & Interior Design Converge</h2>
+                    <p>At Mandala Associates, architecture and interior design converge to shape spaces that are both aesthetic and practical. We believe great design is not just about appearance—it’s about how a space feels, functions, and endures over time.</p>
+                    <p>With a collaborative design approach and hands-on involvement throughout the project lifecycle, we ensure every detail aligns with your vision, budget, and timeline.</p>
+                    
+                    <h3>Why Mandala Associates?</h3>
+                    <ul class="philosophy-list">
+                        <li>Client-focused design philosophy</li>
+                        <li>Strong attention to detail</li>
+                        <li>Balance of creativity and practicality</li>
+                        <li>End-to-end project involvement</li>
+                    </ul>
+                </div>
+                <!-- Placeholder Image representing modern architecture workspace -->
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Mandala Associates Studio" class="about-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-subtitle">Our Expertise</span>
+                <h2>Comprehensive Design Services</h2>
+            </div>
+
+            <div class="services-grid">
+                <!-- Architectural Design -->
+                <div class="service-card">
+                    <span class="service-icon">🏠</span>
+                    <h3>Architectural Design</h3>
+                    <ul class="service-list">
+                        <li>Residential buildings (houses, apartments)</li>
+                        <li>Mixed-use and small commercial projects</li>
+                        <li>Space planning & building layouts</li>
+                        <li>Exterior elevation & façade design</li>
+                    </ul>
+                </div>
+
+                <!-- Interior Design -->
+                <div class="service-card">
+                    <span class="service-icon">🎨</span>
+                    <h3>Interior Design</h3>
+                    <ul class="service-list">
+                        <li>Complete home interiors</li>
+                        <li>Modular kitchens & wardrobes</li>
+                        <li>Living, bedroom & bathroom design</li>
+                        <li>Office & retail interiors</li>
+                    </ul>
+                </div>
+
+                <!-- 3D Visualization -->
+                <div class="service-card">
+                    <span class="service-icon">🧱</span>
+                    <h3>3D Visualization & Design</h3>
+                    <ul class="service-list">
+                        <li>3D exterior & interior renders</li>
+                        <li>Walkthrough-ready visualizations</li>
+                        <li>Material & finish selection support</li>
+                    </ul>
+                </div>
+
+                <!-- Site Supervision -->
+                <div class="service-card">
+                    <span class="service-icon">🏗️</span>
+                    <h3>Site Supervision</h3>
+                    <ul class="service-list">
+                        <li>Construction-stage design coordination</li>
+                        <li>On-site progress review</li>
+                        <li>Design intent compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="section-padding bg-white">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-subtitle">How We Work</span>
+                <h2>Our Process</h2>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-title">Consultation</div>
+                    <p>We begin by understanding your needs, preferences, site conditions, and budget.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-title">Concept Design</div>
+                    <p>Initial layouts, ideas, and design direction are developed and refined.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-title">Development</div>
+                    <p>Detailed drawings, 3D visuals, and material selections bring the project to life.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-title">Execution</div>
+                    <p>We stay involved during construction to ensure the design is executed as intended.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">05</div>
+                    <div class="step-title">Delivery</div>
+                    <p>A thoughtfully designed space that meets expectations—delivered with care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-subtitle">Portfolio</span>
+                <h2>Featured Projects</h2>
+                <p>Our portfolio reflects a diverse range of projects—from modern residences and apartments to warm, functional interiors.</p>
+            </div>
+
+            <div class="project-grid">
+                <!-- Project 1 Placeholder -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Modern Residential Architecture" class="project-img">
+                    <div class="project-overlay">
+                        <span class="project-category">Residential Architecture</span>
+                        <h4 class="project-title">Bhaisepati Residence</h4>
+                    </div>
+                </div>
+
+                <!-- Project 2 Placeholder -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Interior Renovation" class="project-img">
+                    <div class="project-overlay">
+                        <span class="project-category">Interior Renovation</span>
+                        <h4 class="project-title">Lazimpat Apartment</h4>
+                    </div>
+                </div>
+
+                <!-- Project 3 Placeholder -->
+                <div class="project-card">
+                    <img src="https://images.unsplash.com/photo-1556912173-3db9963ee790?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kitchen Design" class="project-img">
+                    <div class="project-overlay">
+                        <span class="project-category">Kitchen & Living</span>
+                        <h4 class="project-title">Sanepa Modern Kitchen</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="#contact" class="btn btn-primary">Explore Our Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Banner -->
+    <section class="section-padding" style="background-color: #222; color: white;">
+        <div class="container text-center">
+            <span class="section-subtitle">Why Clients Choose Us</span>
+            <h2 style="color: white; margin-bottom: 40px;">What Our Work Represents</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 40px;">
+                <div style="max-width: 250px;">
+                    <h4 style="color: var(--color-gold);">Context-sensitive</h4>
+                    <p style="color: #aaa; font-size: 0.9rem;">Designs suited for Nepal's climate and culture.</p>
+                </div>
+                <div style="max-width: 250px;">
+                    <h4 style="color: var(--color-gold);">Transparent</h4>
+                    <p style="color: #aaa; font-size: 0.9rem;">Clear communication & collaboration.</p>
+                </div>
+                <div style="max-width: 250px;">
+                    <h4 style="color: var(--color-gold);">Practical</h4>
+                    <p style="color: #aaa; font-size: 0.9rem;">Modern aesthetics with functional solutions.</p>
+                </div>
+            </div>
+
+            <blockquote style="font-family: var(--font-serif); font-size: 1.5rem; margin-top: 20px;">
+                "Good design is not just seen—it is experienced."
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="section-padding bg-white">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-subtitle">The People</span>
+                <h2>Our Team</h2>
+                <p>At Mandala Associates, our team represents a balance of creative vision, technical expertise, and professional discipline.</p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Principal Architect -->
+                <div class="team-card">
+                    <div class="team-info">
+                        <span class="team-role">Principal Architect & Founder</span>
+                        <h3>[Your Name]</h3>
+                        <p>Provides overall design leadership and strategic direction for the studio. With a strong emphasis on clarity, proportion, and functionality.</p>
+                        <div class="team-meta">
+                            <strong>Expertise:</strong> Architectural Design · Strategic Planning<br>
+                            <strong>Experience:</strong> 8+ Years
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Senior Interior Designer -->
+                <div class="team-card">
+                    <div class="team-info">
+                        <span class="team-role">Senior Interior Designer</span>
+                        <h3>[Name]</h3>
+                        <p>Responsible for crafting sophisticated interior environments. Focuses on thoughtful layouts, refined material palettes, and lighting.</p>
+                        <div class="team-meta">
+                            <strong>Expertise:</strong> Interior Architecture · Space Planning<br>
+                            <strong>Experience:</strong> 5+ Years
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Architectural Designer -->
+                <div class="team-card">
+                    <div class="team-info">
+                        <span class="team-role">Architectural Designer</span>
+                        <h3>[Name]</h3>
+                        <p>Supports the design process through precise drawings, high-quality visualizations, and detailed design documentation.</p>
+                        <div class="team-meta">
+                            <strong>Expertise:</strong> Design Development · 3D Visualization<br>
+                            <strong>Experience:</strong> 3+ Years
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Site Engineer -->
+                 <div class="team-card">
+                    <div class="team-info">
+                        <span class="team-role">Site Engineer / Supervisor</span>
+                        <h3>[Name]</h3>
+                        <p>Oversees on-site implementation with a focus on construction accuracy, material quality, and adherence to approved designs.</p>
+                        <div class="team-meta">
+                            <strong>Expertise:</strong> Site Execution · Quality Control<br>
+                            <strong>Experience:</strong> 4+ Years
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <span class="section-subtitle">Common Questions</span>
+                <h2>Frequently Asked Questions</h2>
+            </div>
+
+            <div class="faq-container">
+                <!-- FAQ 1 -->
+                <div class="faq-item">
+                    <button class="faq-question">What services does Mandala Associates provide?</button>
+                    <div class="faq-answer">
+                        <p>We offer comprehensive architectural and interior design services, including residential and commercial architecture, interior design, 3D visualization, design development, and site supervision support.</p>
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <button class="faq-question">Do you handle both design and construction?</button>
+                    <div class="faq-answer">
+                        <p>Mandala Associates focuses primarily on design. However, we remain actively involved during construction through site supervision and coordination to ensure the design is executed accurately.</p>
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <button class="faq-question">Can you work within a fixed budget?</button>
+                    <div class="faq-answer">
+                        <p>Yes. We carefully plan designs based on your budget from the early stages, offering practical solutions, material options, and clear design decisions to achieve the best possible outcome.</p>
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <button class="faq-question">Do you take renovation and interior-only projects?</button>
+                    <div class="faq-answer">
+                        <p>Absolutely. We undertake interior-only works, renovations, kitchen redesigns, and partial upgrades in addition to complete architectural projects.</p>
+                    </div>
+                </div>
+                <!-- FAQ 5 -->
+                <div class="faq-item">
+                    <button class="faq-question">How long does the design process take?</button>
+                    <div class="faq-answer">
+                        <p>Project timelines vary depending on scope and complexity. Typically, concept design takes a few weeks, followed by detailed design and visualization phases aligned with client approvals.</p>
+                    </div>
+                </div>
+                <!-- FAQ 6 -->
+                <div class="faq-item">
+                    <button class="faq-question">Are your designs suitable for Nepal’s climate and regulations?</button>
+                    <div class="faq-answer">
+                        <p>Yes. All our designs are developed with local climate conditions, building practices, and municipal regulations in mind.</p>
+                    </div>
+                </div>
+                 <!-- FAQ 7 -->
+                 <div class="faq-item">
+                    <button class="faq-question">How do we get started?</button>
+                    <div class="faq-answer">
+                        <p>Simply contact us via phone or email to schedule an initial consultation. We will discuss your requirements, site details, and next steps.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Contact -->
+    <section id="contact" class="section-padding bg-dark">
+        <div class="container" id="cta">
+            <span class="section-subtitle">Get In Touch</span>
+            <h2>Ready to Design Your Space?</h2>
+            <p>Whether you’re planning a new home, renovating an interior, or developing a building project, Mandala Associates is here to help.</p>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h4>📞 Call Us</h4>
+                    <a href="tel:+9779841037870">+977 984 103 7870</a><br>
+                    <a href="tel:+9779849001811">+977 984 900 1811</a>
+                </div>
+                <div class="contact-item">
+                    <h4>📧 Email</h4>
+                    <a href="mailto:mandalaassociates@gmail.com">mandalaassociates@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <h4>📍 Location</h4>
+                    <p>Teku, Kathmandu, Nepal</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <a href="mailto:mandalaassociates@gmail.com" class="btn btn-gold">Book a Consultation Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <span class="brand">Mandala Associates</span>
+            <p>Design. Refine. Deliver.</p>
+            <div style="margin-top: 20px;">
+                <small>&copy; <script>document.write(new Date().getFullYear())</script> Mandala Associates. All Rights Reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Sticky Header
+            const header = document.getElementById('navbar');
+            const logoSpan = document.querySelector('.logo span');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // 2. Mobile Menu Toggle
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-link');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            navLinksItems.forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // 3. FAQ Accordion
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const item = question.parentElement;
+                    const answer = question.nextElementSibling;
+                    
+                    // Toggle active class
+                    item.classList.toggle('active');
+
+                    // Handle max-height for smooth transition
+                    if (item.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    } else {
+                        answer.style.maxHeight = null;
+                    }
+
+                    // Optional: Close other open accordions
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question) {
+                            otherQuestion.parentElement.classList.remove('active');
+                            otherQuestion.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
