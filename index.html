@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mandala Associates - Kathmandu-based architecture and interior design studio dedicated to creating timeless, functional, and inspiring spaces.">
     <title>Mandala Associates | Architecture & Interior Design</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -295,13 +296,18 @@
         #hero {
             height: 100vh;
             min-height: 600px;
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             display: flex;
             align-items: center;
             position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin-top: 0; /* Reset default */
         }
 
         .hero-content {
@@ -559,7 +565,7 @@
             /* Slide Logic: 
                Move it down so only the top part (Name/Role) is visible. 
                100% (height of box) - 100px (visible area) */
-            transform: translateY(calc(100% - 95px)); 
+            transform: translateY(calc(100% - 120px)); 
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: 10;
             border-top: 2px solid var(--color-gold);
@@ -805,9 +811,19 @@
             h2 { font-size: 2rem; }
             h3 { font-size: 1.3rem; }
             
-            /* Hero Mobile */
+            /* Hero Mobile Fixes - Prevent Overlap */
+            #hero {
+                height: auto; /* Allow expansion for tall content */
+                min-height: 100vh; /* Ensure it still covers screen */
+                padding-top: 120px; /* Push content down below Fixed Nav */
+                padding-bottom: 60px;
+                align-items: flex-start; /* Start from top (plus padding) instead of center */
+                background-attachment: scroll; /* Fix for some mobile browsers jittering */
+            }
+
             .hero-content { 
                 text-align: center; 
+                margin-top: 20px; /* slight extra spacing */
             }
             
             .hero-location { 
@@ -1104,13 +1120,13 @@
             <div class="team-grid">
                 <!-- Principal Architect -->
                 <div class="team-card">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Principal Architect" class="team-img">
+                    <img src="img/team-monila.jpeg" alt="Principal Architect" class="team-img">
                     <div class="team-info">
-                        <span class="team-role">Principal Architect & Founder</span>
-                        <h3>[Your Name]</h3>
+                        <span class="team-role">MD, Co-Founder, Principal Architect</span>
+                        <h3>Monila Pradhan</h3>
                         
                         <div class="team-details">
-                            <p>Provides overall design leadership and strategic direction for the studio. With a strong emphasis on clarity, proportion, and functionality.</p>
+                            <p>Monila Pradhan is the co-founder and principal architect of Mandala Associates. She has a strong emphasis on clarity, proportion, and functionality.</p>
                             <div class="team-meta">
                                 <strong>Expertise:</strong> Architectural Design · Strategic Planning<br>
                                 <strong>Experience:</strong> 8+ Years
